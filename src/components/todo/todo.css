@@ -1,0 +1,77 @@
+.todo-container {
+    margin: 50px auto;
+    max-width: 600px;
+}
+
+.todo-title {
+    font-size: 20px;
+    margin: 15px auto;
+    color: red;
+    text-align: center;
+    font-weight: bold;
+}
+
+.todo-new {
+    width: 100%;
+    /* Sử dụng Flexbox để căn chỉnh các phần tử con */
+    display: flex;
+    /* Khoảng cách giữa các phần tử con là 15px */
+    gap: 15px;
+    /* Căn giữa các phần tử con theo trục ngang */
+    justify-content: center;
+}
+
+.todo-data {
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #262323;
+    padding: 15px;
+    display: flex;
+    /* Các phần tử con đc sắp xếp theo cột dọc */
+    flex-direction: column;
+    gap: 15px;
+}
+
+.todo-image {
+    display: flex;
+    /* Căn giữa theo chiều ngang */
+    justify-content: center;
+    /* Căn giữa theo chiều dọc */
+    align-items: center;
+    margin: 0;
+}
+
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    /* Hiệu ứng chuyển đổi filter sẽ diễn ra trong 300ms */
+    transition: filter 300ms;
+}
+
+.logo:hover {
+    /* 0 0 2em #646cffaa; → Bóng đổ có bán kính 2em với màu xanh tím. */
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Hiệu ứng quay logo */
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
