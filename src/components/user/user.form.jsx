@@ -1,8 +1,10 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
+import axios from "axios";
+
 const FormUser = () => {
 
-    const [fullName, setFullName] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [age, setAge] = useState();
@@ -10,7 +12,17 @@ const FormUser = () => {
     const [address, setAddress] = useState("");
 
     const handleCreateUser = () => {
-        console.log(">>>Check form: ", { fullName, email, password, age, gender, address });
+        const URL_BACKEND = "http://localhost:8080/api/v1/users";
+        const data = {
+            name: name,
+            email: email,
+            password: password,
+            age: age,
+            gender: gender,
+            address: address
+        }
+        axios.post(URL_BACKEND, data)
+        console.log(">>>Check form: ", { name, email, password, age, gender, address });
     }
     return (
         <div className="user-form" style={{ margin: "20px 0" }}>
@@ -18,8 +30,8 @@ const FormUser = () => {
                 <div>
                     <span>Fullname</span>
                     <Input
-                        value={fullName}
-                        onChange={(event) => { setFullName(event.target.value) }}
+                        value={name}
+                        onChange={(event) => { setName(event.target.value) }}
                     />
                 </div>
                 <div>
