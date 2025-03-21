@@ -4,8 +4,8 @@ const Header = () => {
     return (
         <ul>
             <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/user">Users</NavLink></li>
-            <li><NavLink to="/product">Products</NavLink></li>
+            <li><NavLink to="/users">Users</NavLink></li>
+            <li><NavLink to="/companies">Companies</NavLink></li>
         </ul>
     );
 }
