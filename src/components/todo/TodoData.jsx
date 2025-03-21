@@ -2,16 +2,28 @@
 const TodoData = (props) => {
 
     //Khởi tạo biến từ props lấy từ App.jsx
-    const { name, age, data } = props;
+    const { todoList, deleteData } = props;
 
-    console.log(">>> Check props: ", props);
+    const handleDelele = (id) => {
+        deleteData(id)
+    }
+
 
     return (
         <div className='todo-data'>
-            <div>Code: {data.name}</div>
-            <div>Learning React</div>
-            <div>Watch youtube</div>
-        </div>
+            {todoList.map((item, index) => {
+                console.log(">> check item: ", item, index)
+                return (
+                    <div className="todo-item" key={item.id}>
+                        <div>{item.name}</div>
+                        <button
+                            onClick={() => handleDelele(item.id)}
+                            style={{ cursor: "pointer" }}
+                        >Delete</button>
+                    </div>
+                )
+            })}
+        </div >
 
     )
 }
