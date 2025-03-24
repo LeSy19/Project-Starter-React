@@ -1,23 +1,24 @@
-
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Space, Table, Tag } from 'antd';
-import { fetchAllUserAPI } from '../../services/api.services';
-import { useEffect, useState } from 'react';
-const UserTable = () => {
+import UpdateUserModal from './update.user.modal';
+import { useState } from 'react';
 
-    const [dataUsers, setDataUsers] = useState([
-        { id: 12, name: "sy", email: "ád@gmail.com", age: 12, gender: "MALE", address: "q12" },
-        { id: 4, name: "syle", email: "ádád@gmail.com", age: 12, gender: "MALE", address: "q12" },
-    ]);
+const UserTable = (props) => {
 
-    useEffect(() => {
-        console.log(">>>run effect")
-        loadUser();
-    }, []);
+    const { dataUsers } = props;
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+
+    const [dataUpdate, setDataUpdate] = useState(null);
 
     const columns = [
         {
             title: 'ID',
             dataIndex: 'id',
+            render: (_, record) => {
+                return (
+                    <a href='#'>{record.id}</a>
+                );
+            },
         },
         {
             title: 'Name',
@@ -39,22 +40,40 @@ const UserTable = () => {
             title: 'Address',
             dataIndex: 'address',
         },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <div style={{ display: "flex", gap: "20px" }}>
+                    <EditOutlined
+                        style={{ cursor: "pointer", color: "orange" }}
+                        onClick={() => {
+                            setDataUpdate(record);
+                            setIsModalUpdateOpen(true);
+                        }}
+                    />
+                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                </div>
+            ),
+        },
 
     ];
 
-    const loadUser = async () => {
-        const res = await fetchAllUserAPI();
-        setDataUsers(res.data);
-    }
-
-
 
     return (
-        <Table
-            columns={columns}
-            dataSource={dataUsers}
-            rowKey="id"
-        />
+        <>
+            <Table
+                columns={columns}
+                dataSource={dataUsers}
+                rowKey="id"
+            />
+            <UpdateUserModal
+                isModalUpdateOpen={isModalUpdateOpen}
+                setIsModalUpdateOpen={setIsModalUpdateOpen}
+                dataUpdate={dataUpdate}
+                setDataUpdate={setDataUpdate}
+            />
+        </>
     )
 }
 export default UserTable;
