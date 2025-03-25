@@ -5,7 +5,6 @@ import { CopyrightOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons
 const Header = () => {
     const [current, setCurrent] = useState('');
     const onClick = (e) => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
 

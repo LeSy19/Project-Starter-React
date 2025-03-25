@@ -7,7 +7,6 @@ const UserPage = () => {
     const [dataUsers, setDataUsers] = useState([]);
 
     useEffect(() => {
-        console.log(">>>run effect")
         loadUser();
     }, []);
 
@@ -25,6 +24,7 @@ const UserPage = () => {
             />
             <UserTable
                 dataUsers={dataUsers}
+                loadUser={loadUser}
             />
         </div>
     )

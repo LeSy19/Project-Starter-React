@@ -1,19 +1,17 @@
 import { Button, Input, Modal, notification } from "antd";
 import { useEffect, useState } from "react";
-import { createUserAPI } from "../../services/api.services";
+import { createUserAPI, UpdateUserAPI } from "../../services/api.services";
 const UpdateUserModal = (props) => {
 
     const [name, setName] = useState("");
     const [id, setId] = useState("");
-    const [password, setPassword] = useState("");
     const [age, setAge] = useState();
     const [gender, setGender] = useState("");
     const [address, setAddress] = useState("");
 
-    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate } = props;
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
 
     useEffect(() => {
-        console.log(">>check user update", dataUpdate)
         if (dataUpdate) {
             setId(dataUpdate.id);
             setName(dataUpdate.name);
@@ -23,22 +21,22 @@ const UpdateUserModal = (props) => {
         }
     }, [dataUpdate]);
 
-    const handleCreateUser = async () => {
+    const handleUpdateUser = async () => {
 
-        const res = await createUserAPI(name, email, password, age, gender, address);
+        const res = await UpdateUserAPI(id, name, age, gender, address);
         if (res.data) {
             notification.success({
-                message: "Create User",
-                description: "Create User Successfully",
+                message: "Update User",
+                description: "Update User Successfully",
                 duration: 2, //Thời gian hiển thị
                 showProgress: true,
                 pauseOnHover: true
             });
             resetAndCloseModal();
-            await loadUser(); //dùng await vì bên user dùng async
+            await loadUser();
         } else {
             notification.error({
-                message: "Create User",
+                message: "UPdate User",
                 description: JSON.stringify(res.message.message),
                 duration: 2, //Thời gian hiển thị
                 showProgress: true,
@@ -61,7 +59,7 @@ const UpdateUserModal = (props) => {
         <Modal
             title="Update user"
             open={isModalUpdateOpen}
-            onOk={() => handleCreateUser()}
+            onOk={() => handleUpdateUser()}
             onCancel={() => resetAndCloseModal()}
             maskClosable={false}
             okText={"SAVE"}
