@@ -1,12 +1,11 @@
 import { Button, Input, Modal, notification } from "antd";
 import { useEffect, useState } from "react";
-import { createUserAPI, UpdateUserAPI } from "../../services/api.services";
-const UpdateUserModal = (props) => {
+import { updateCompanyAPI } from "../../services/api.services";
+const UpdateCompanyModal = (props) => {
 
-    const [name, setName] = useState("");
     const [id, setId] = useState("");
-    const [age, setAge] = useState();
-    const [gender, setGender] = useState("");
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
     const [address, setAddress] = useState("");
 
     const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
@@ -15,15 +14,14 @@ const UpdateUserModal = (props) => {
         if (dataUpdate) {
             setId(dataUpdate.id);
             setName(dataUpdate.name);
-            setAge(dataUpdate.age);
-            setGender(dataUpdate.gender);
+            setDescription(dataUpdate.description);
             setAddress(dataUpdate.address);
         }
     }, [dataUpdate]);
 
     const handleUpdateUser = async () => {
 
-        const res = await UpdateUserAPI(id, name, age, gender, address);
+        const res = await updateCompanyAPI(id, name, description, address);
         if (res.data) {
             notification.success({
                 message: "Update User",
@@ -49,8 +47,7 @@ const UpdateUserModal = (props) => {
         setIsModalUpdateOpen(false);
         setId("");
         setName("");
-        setAge("");
-        setGender("");
+        setDescription("");
         setAddress("");
         setDataUpdate(null)
     }
@@ -80,20 +77,7 @@ const UpdateUserModal = (props) => {
                     />
                 </div>
 
-                <div>
-                    <span>Age</span>
-                    <Input
-                        value={age}
-                        onChange={(event) => setAge(event.target.value)}
-                    />
-                </div>
-                <div>
-                    <span>Gender</span>
-                    <Input
-                        value={gender}
-                        onChange={(event) => setGender(event.target.value)}
-                    />
-                </div>
+
                 <div>
                     <span>Address</span>
                     <Input
@@ -101,8 +85,15 @@ const UpdateUserModal = (props) => {
                         onChange={(event) => setAddress(event.target.value)}
                     />
                 </div>
+                <div>
+                    <span>Description</span>
+                    <Input
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                    />
+                </div>
             </div>
         </Modal>
     );
 }
-export default UpdateUserModal;
+export default UpdateCompanyModal;

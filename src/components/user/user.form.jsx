@@ -1,22 +1,19 @@
 import { Button, Input, Modal, notification } from "antd";
 import { useState } from "react";
-import { createUserAPI } from "../../services/api.services";
+import { createCompanyAPI } from "../../services/api.services";
 
-const FormUser = (props) => {
+const FormCompany = (props) => {
     const { loadUser } = props;
 
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [age, setAge] = useState();
-    const [gender, setGender] = useState("");
+    const [description, setDescription] = useState("");
     const [address, setAddress] = useState("");
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCreateUser = async () => {
 
-        const res = await createUserAPI(name, email, password, age, gender, address);
+        const res = await createCompanyAPI(name, description, address);
         if (res.data) {
             notification.success({
                 message: "Create User",
@@ -41,10 +38,6 @@ const FormUser = (props) => {
     const resetAndCloseModal = () => {
         setIsModalOpen(false);
         setName("");
-        setEmail("");
-        setPassword("");
-        setAge("");
-        setGender("");
         setAddress("");
     }
     return (
@@ -73,39 +66,20 @@ const FormUser = (props) => {
                             onChange={(event) => { setName(event.target.value) }}
                         />
                     </div>
-                    <div>
-                        <span>Email</span>
-                        <Input
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <Input.Password
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <span>Age</span>
-                        <Input
-                            value={age}
-                            onChange={(event) => setAge(event.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <span>Gender</span>
-                        <Input
-                            value={gender}
-                            onChange={(event) => setGender(event.target.value)}
-                        />
-                    </div>
+
+
                     <div>
                         <span>Address</span>
                         <Input
                             value={address}
                             onChange={(event) => setAddress(event.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <span>Description</span>
+                        <Input
+                            value={description}
+                            onChange={(event) => { setDescription(event.target.value) }}
                         />
                     </div>
                 </div>
@@ -114,4 +88,4 @@ const FormUser = (props) => {
     )
 }
 
-export default FormUser;
+export default FormCompany;

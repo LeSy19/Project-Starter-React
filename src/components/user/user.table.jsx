@@ -1,7 +1,9 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Space, Table, Tag } from 'antd';
-import UpdateUserModal from './update.user.modal';
+import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { notification, Popconfirm, Table, Tag } from 'antd';
 import { useState } from 'react';
+import UpdateCompanyModal from './update.user.modal';
+import CompanyDetail from './user.detail';
+import { deleteCompanyAPI } from '../../services/api.services';
 
 const UserTable = (props) => {
 
@@ -9,6 +11,32 @@ const UserTable = (props) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
     const [dataUpdate, setDataUpdate] = useState(null);
+
+    const [dataDetail, setDataDetail] = useState(null);
+    const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+    const handleDeleteUser = async (id) => {
+        const res = await deleteCompanyAPI(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete User",
+                description: "Delete User Successfully",
+                duration: 2, //Thời gian hiển thị
+                showProgress: true,
+                pauseOnHover: true
+            });
+            await loadUser();
+        } else {
+            notification.error({
+                message: "Delete User",
+                description: JSON.stringify(res.message.message),
+                duration: 2, //Thời gian hiển thị
+                showProgress: true,
+                pauseOnHover: true
+            });
+        }
+    }
+
 
     const columns = [
         {
@@ -24,21 +52,15 @@ const UserTable = (props) => {
             title: 'Name',
             dataIndex: 'name',
         },
-        {
-            title: 'Email',
-            dataIndex: 'email',
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-        },
-        {
-            title: 'Gender',
-            dataIndex: 'gender',
-        },
+
         {
             title: 'Address',
             dataIndex: 'address',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+            render: (text) => text.length > 20 ? `${text.substring(0, 20)}...` : text
         },
         {
             title: 'Action',
@@ -52,7 +74,24 @@ const UserTable = (props) => {
                             setIsModalUpdateOpen(true);
                         }}
                     />
-                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    <Popconfirm
+                        title="Delete the task"
+                        description="Are you sure to delete this task?"
+                        onConfirm={() => { handleDeleteUser(record.id) }}
+                        // onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    </Popconfirm>
+
+
+                    <EyeOutlined style={{ cursor: "pointer", color: "orange" }}
+                        onClick={() => {
+                            setDataDetail(record);
+                            setIsDetailOpen(true);
+                        }}
+                    />
                 </div>
             ),
         },
@@ -67,11 +106,18 @@ const UserTable = (props) => {
                 dataSource={dataUsers}
                 rowKey="id"
             />
-            <UpdateUserModal
+            <UpdateCompanyModal
                 isModalUpdateOpen={isModalUpdateOpen}
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
+                loadUser={loadUser}
+            />
+            <CompanyDetail
+                dataDetail={dataDetail}
+                setDataDetail={setDataDetail}
+                isDetailOpen={isDetailOpen}
+                setIsDetailOpen={setIsDetailOpen}
                 loadUser={loadUser}
             />
         </>

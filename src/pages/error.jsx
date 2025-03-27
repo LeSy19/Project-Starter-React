@@ -4,6 +4,10 @@ export default function ErrorPage() {
   const error = useRouteError();
   console.error(error);
 
+  // Kiểm tra nếu error không phải là object mong đợi
+  const errorMessage = error && typeof error === "object" ? error.statusText || error.message || "Unknown error" : "Unknown error";
+
+
   return (
     <div id="error-page">
       <h1>Oops!</h1>

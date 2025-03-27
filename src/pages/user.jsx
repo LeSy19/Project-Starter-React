@@ -1,6 +1,6 @@
 import FormUser from "../components/user/user.form";
 import UserTable from "../components/user/user.table";
-import { fetchAllUserAPI } from '../services/api.services';
+import { fetchAllCompanyAPI } from '../services/api.services';
 import { useEffect, useState } from 'react';
 
 const UserPage = () => {
@@ -12,8 +12,8 @@ const UserPage = () => {
 
 
     const loadUser = async () => {
-        const res = await fetchAllUserAPI();
-        setDataUsers(res.data);
+        const res = await fetchAllCompanyAPI();
+        setDataUsers(res.data.result);
     }
 
 
