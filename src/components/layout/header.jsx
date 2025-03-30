@@ -25,6 +25,12 @@ const Header = () => {
             icon: <CopyrightOutlined />,
 
         },
+        {
+            label: <Link to={"/register"}>Register</Link>,
+            key: 'register',
+            icon: <CopyrightOutlined />,
+
+        },
 
 
     ];

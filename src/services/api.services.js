@@ -29,8 +29,8 @@ const deleteCompanyAPI = (id) => {
 }
 
 
-const fetchAllCompanyAPI = () => {
-    const URL_BACKEND = "/api/v1/companies";
+const fetchAllCompanyAPI = (page, size) => {
+    const URL_BACKEND = `/api/v1/companies?page=${page}&size=${size}`;
     return axios.get(URL_BACKEND);
 }
 
@@ -63,11 +63,28 @@ const updateCompanyLogoAPI = (logo, id, name, address, description) => {
     return axios.put(URL_BACKEND, data)
 }
 
+
+const registerUserAPI = (name, email, password, age, gender, address) => {
+    const URL_BACKEND = "/api/v1/auth/register";
+    const data = {
+        name: name,
+        email: email,
+        password: password,
+        age: age,
+        gender: gender,
+        address: address
+    }
+
+    return axios.post(URL_BACKEND, data)
+}
+
+
 export {
     createCompanyAPI,
     fetchAllCompanyAPI,
     updateCompanyAPI,
     deleteCompanyAPI,
     handleUploadFile,
-    updateCompanyLogoAPI
+    updateCompanyLogoAPI,
+    registerUserAPI
 };

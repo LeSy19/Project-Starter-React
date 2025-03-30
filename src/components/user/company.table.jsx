@@ -1,13 +1,17 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
-import { notification, Popconfirm, Table, Tag } from 'antd';
+import { notification, Pagination, Popconfirm, Table, Tag } from 'antd';
 import { useState } from 'react';
-import UpdateCompanyModal from './update.user.modal';
-import CompanyDetail from './user.detail';
+import UpdateCompanyModal from './update.company.modal';
+import CompanyDetail from './company.detail';
 import { deleteCompanyAPI } from '../../services/api.services';
 
 const UserTable = (props) => {
 
-    const { dataUsers, loadUser } = props;
+    const { dataCompanies, loadUser,
+        page, size, total,
+        setPage, setSize
+    } = props;
+    console.log(">>check props: ", props)
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
     const [dataUpdate, setDataUpdate] = useState(null);
@@ -39,6 +43,14 @@ const UserTable = (props) => {
 
 
     const columns = [
+        {
+            title: "STT",
+            render: (_, record, index) => {
+                return (
+                    <>{(index + 1) + (page - 1) * size}</>
+                );
+            },
+        },
         {
             title: 'ID',
             dataIndex: 'id',
@@ -98,13 +110,40 @@ const UserTable = (props) => {
 
     ];
 
+    const onChange = (pagination, filters, sorter, extra) => {
+        //nếu thay đổi trang
+        if (pagination && pagination.page) {
+            // dấu "+" convert từ string => int
+            if (+pagination.current !== +page) {
+                setPage(+pagination.current);
+            }
+        }
+
+        //nếu thay đổi tổng số phần tử
+        if (pagination && pagination.size) {
+            // dấu "+" convert từ string => int
+            if (+pagination.pageSize !== +size) {
+                setSize(+pagination.pageSize);
+            }
+        }
+        console.log(">>>check onchange: ", { pagination, filters, sorter, extra })
+    };
 
     return (
         <>
             <Table
                 columns={columns}
-                dataSource={dataUsers}
+                dataSource={dataCompanies}
                 rowKey="id"
+                pagination={
+                    {
+                        page: page,
+                        size: size,
+                        showSizeChanger: true,
+                        total: total,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }}
+                onChange={onChange}
             />
             <UpdateCompanyModal
                 isModalUpdateOpen={isModalUpdateOpen}

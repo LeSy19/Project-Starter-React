@@ -1,7 +1,7 @@
 
-const CompanyPage = () => {
+const UserPage = () => {
     return (
         <div>Company Page</div>
     )
 }
-export default CompanyPage;
+export default UserPage;

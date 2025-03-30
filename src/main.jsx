@@ -6,9 +6,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginPages from './pages/login.jsx';
-import UserPage from './pages/user.jsx';
+import CompanyPage from './pages/user.jsx';
 import RegisterPages from './pages/register.jsx';
-import CompanyPage from './pages/company.jsx';
+import UserPage from './pages/company.jsx';
 import "./styles/global.css";
 import TodoApp from './components/todo/TodoApp.jsx';
 import ErrorPage from './pages/error.jsx';
@@ -25,11 +25,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <UserPage />
+        element: <CompanyPage />
       },
       {
         path: "/companies",
-        element: <CompanyPage />
+        element: <UserPage />
       }
     ]
   },

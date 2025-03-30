@@ -3,19 +3,31 @@ import UserTable from "../components/user/company.table";
 import { fetchAllCompanyAPI } from '../services/api.services';
 import { useEffect, useState } from 'react';
 
-const UserPage = () => {
-    const [dataUsers, setDataUsers] = useState([]);
+const CompanyPage = () => {
+    const [dataCompanies, setDataCompanies] = useState([]);
+    const [page, setPage] = useState(1);
+    const [size, setSize] = useState(10);
+    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         loadUser();
-    }, []);
+    }, [page, size]);
 
 
     const loadUser = async () => {
-        const res = await fetchAllCompanyAPI();
-        setDataUsers(res.data.result);
+        const res = await fetchAllCompanyAPI(page, size);
+        if (res.data) {
+            setDataCompanies(res.data.result);
+            setPage(res.data.meta.page);
+            setSize(res.data.meta.pageSize);
+            setTotal(res.data.meta.total);
+        }
+
+        console.log(">>check total: ", res.data)
+
     }
 
+    console.log(">>check size", size)
 
     return (
         <div style={{ padding: "20px" }}>
@@ -23,12 +35,17 @@ const UserPage = () => {
                 loadUser={loadUser}
             />
             <UserTable
-                dataUsers={dataUsers}
+                dataCompanies={dataCompanies}
                 loadUser={loadUser}
+                page={page}
+                size={size}
+                total={total}
+                setPage={setPage}
+                setSize={setSize}
             />
         </div>
     )
 }
 
 
-export default UserPage;
+export default CompanyPage;
