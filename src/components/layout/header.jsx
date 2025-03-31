@@ -19,7 +19,7 @@ const Header = () => {
             icon: <HomeOutlined />,
         },
         {
-            label: <Link to={"/users"}>Users</Link>,
+            label: <Link to={"/users"}>User</Link>,
             key: 'users',
             icon: <UserOutlined />,
         },

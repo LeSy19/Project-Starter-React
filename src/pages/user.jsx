@@ -1,7 +1,7 @@
 
 const UserPage = () => {
     return (
-        <div>Company Page</div>
+        <div>UserPage</div>
     )
 }
 export default UserPage;

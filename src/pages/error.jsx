@@ -12,8 +12,8 @@ export default function ErrorPage() {
   return (
 
     <Result
-      status="403"
-      title="Oops!"
+      status="404"
+      title="404"
       subTitle={error.statusText || error.message}
       extra={<Button type="primary">
         <Link to="/">

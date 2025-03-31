@@ -6,13 +6,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginPages from './pages/login.jsx';
-import CompanyPage from './pages/user.jsx';
+import CompanyPage from './pages/company.jsx';
 import RegisterPages from './pages/register.jsx';
-import UserPage from './pages/company.jsx';
+import UserPage from './pages/user.jsx';
 import "./styles/global.css";
 import TodoApp from './components/todo/TodoApp.jsx';
 import ErrorPage from './pages/error.jsx';
 import { AuthWrapper } from './components/context/auth.context.jsx';
+import PrivateRoute from './pages/private.route.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,12 +26,17 @@ const router = createBrowserRouter([
         element: <TodoApp />
       },
       {
-        path: "/users",
+        path: "/companies",
         element: <CompanyPage />
       },
+
       {
-        path: "/companies",
-        element: <UserPage />
+        path: "/users",
+        element: (
+          <PrivateRoute>
+            <UserPage />
+          </PrivateRoute>
+        )
       }
     ]
   },

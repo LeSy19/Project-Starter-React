@@ -5,7 +5,7 @@ import UpdateCompanyModal from './update.company.modal';
 import CompanyDetail from './company.detail';
 import { deleteCompanyAPI } from '../../services/api.services';
 
-const UserTable = (props) => {
+const CompanyTable = (props) => {
 
     const { dataCompanies, loadUser,
         page, size, total,
@@ -160,4 +160,4 @@ const UserTable = (props) => {
         </>
     )
 }
-export default UserTable;
+export default CompanyTable;

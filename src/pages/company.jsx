@@ -1,5 +1,5 @@
 import FormUser from "../components/user/company.form";
-import UserTable from "../components/user/company.table";
+import CompanyTable from "../components/user/company.table";
 import { fetchAllCompanyAPI } from '../services/api.services';
 import { useEffect, useState } from 'react';
 
@@ -32,7 +32,7 @@ const CompanyPage = () => {
             <FormUser
                 loadUser={loadUser}
             />
-            <UserTable
+            <CompanyTable
                 dataCompanies={dataCompanies}
                 loadUser={loadUser}
                 page={page}

@@ -8,9 +8,10 @@ import Footer from './components/layout/footer';
 import { getAccountAPI } from "./services/api.services";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./components/context/auth.context";
+import { Spin } from 'antd';
 //arrow function = () => {}
 const App = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, isAppLoading, setIsAppLoading } = useContext(AuthContext);
 
   useEffect(() => {
     fetchUserInfo();
@@ -22,12 +23,32 @@ const App = () => {
       //success
       setUser(res.data.user);
     }
+    setIsAppLoading(false);
   }
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      {isAppLoading === true ?
+
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          <Spin />
+        </div>
+
+        :
+        <>
+
+          <Header />
+          <Outlet />
+          <Footer />
+        </>
+      }
+
     </>
   )
 }
