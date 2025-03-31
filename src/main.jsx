@@ -12,6 +12,7 @@ import UserPage from './pages/company.jsx';
 import "./styles/global.css";
 import TodoApp from './components/todo/TodoApp.jsx';
 import ErrorPage from './pages/error.jsx';
+import { AuthWrapper } from './components/context/auth.context.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,8 +46,10 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <AuthWrapper>
+    {/* <StrictMode> */}
     {/* <App /> */}
     <RouterProvider router={router} />
-  </StrictMode>,
+    {/* </StrictMode>, */}
+  </AuthWrapper>
 )

@@ -79,6 +79,17 @@ const registerUserAPI = (name, email, password, age, gender, address) => {
 }
 
 
+const loginUserAPI = (email, password) => {
+    const URL_BACKEND = "/api/v1/auth/login";
+    const data = {
+        username: email,
+        password: password,
+    }
+
+    return axios.post(URL_BACKEND, data)
+}
+
+
 export {
     createCompanyAPI,
     fetchAllCompanyAPI,
@@ -86,5 +97,6 @@ export {
     deleteCompanyAPI,
     handleUploadFile,
     updateCompanyLogoAPI,
-    registerUserAPI
+    registerUserAPI,
+    loginUserAPI
 };

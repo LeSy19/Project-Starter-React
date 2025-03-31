@@ -1,6 +1,6 @@
 import { Button, Input, Form, Radio, InputNumber, notification, Row, Col } from "antd";
 import { registerUserAPI } from "../../services/api.services";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [form] = Form.useForm();
@@ -137,11 +137,21 @@ const Register = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Row justify={"center"}>
+                <Row justify={"center"} align="middle" style={{ flexDirection: "column", gap: "20px", width: "100%" }}>
                     <Col xs={24} md={9}>
                         <Button type="primary"
+                            style={{
+                                width: "100%",
+                                padding: 10,
+                                borderRadius: 6,
+                                fontSize: "16px",
+                                fontWeight: "bold",
+                            }}
                             onClick={() => form.submit()}
                         >Register</Button>
+                    </Col>
+                    <Col xs={24} md={9}>
+                        <Link to="/login">Đã có tài khoản</Link>
                     </Col>
                 </Row>
 
