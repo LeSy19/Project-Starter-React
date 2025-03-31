@@ -5,7 +5,7 @@ import { loginUserAPI } from '../../services/api.services';
 import { AuthContext } from '../context/auth.context';
 
 const LoginForm = () => {
-    // const [form] = Form.useForm();
+    const [form] = Form.useForm();
     const navigate = useNavigate();
     const { user, setUser } = useContext(AuthContext);
 
@@ -32,6 +32,7 @@ const LoginForm = () => {
             });
         }
     }
+
 
     return (
         <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
@@ -67,7 +68,9 @@ const LoginForm = () => {
                         name="password"
                         rules={[{ required: true, message: "Please input your password!" }]}
                     >
-                        <Input.Password style={{ borderRadius: 6 }} />
+                        <Input.Password
+                            style={{ borderRadius: 6 }}
+                        />
                     </Form.Item>
 
                     <Row justify="space-between" >

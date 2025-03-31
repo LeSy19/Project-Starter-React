@@ -1,14 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import { Menu } from "antd";
 import { useContext, useState } from "react";
-import { CopyrightOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { AliwangwangOutlined, CopyrightOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { AuthContext } from "../context/auth.context";
 const Header = () => {
     const [current, setCurrent] = useState('');
 
     const { user, setUser } = useContext(AuthContext);
 
-    console.log(">>>Check context: ", { user, setUser })
     const onClick = (e) => {
         setCurrent(e.key);
     };
@@ -30,23 +29,27 @@ const Header = () => {
             icon: <CopyrightOutlined />,
 
         },
-        {
-            label: 'Setting',
+        ...(!user.id ? [{
+            label: <Link to={"/login"}>Login</Link>,
+            key: 'login',
+            icon: <LoginOutlined />,
+        }] : []),
+
+        ...(user.id ? [{
+            label: `Welcome ${user.name}`,
             key: 'setting',
-            icon: <SettingOutlined />,
+            icon: <AliwangwangOutlined />,
             children: [
-                {
-                    label: <Link to={"/login"}>Login</Link>,
-                    key: 'login',
-                    icon: <LoginOutlined />
-                },
+
                 {
                     label: <Link to={"/register"}>Register</Link>,
                     key: 'register',
                     icon: <LogoutOutlined />
                 },
             ]
-        }
+        }] : []),
+
+
 
 
     ];

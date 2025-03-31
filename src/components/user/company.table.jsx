@@ -11,7 +11,6 @@ const UserTable = (props) => {
         page, size, total,
         setPage, setSize
     } = props;
-    console.log(">>check props: ", props)
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
     const [dataUpdate, setDataUpdate] = useState(null);
@@ -126,7 +125,6 @@ const UserTable = (props) => {
                 setSize(+pagination.pageSize);
             }
         }
-        console.log(">>>check onchange: ", { pagination, filters, sorter, extra })
     };
 
     return (

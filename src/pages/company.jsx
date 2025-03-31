@@ -23,11 +23,9 @@ const CompanyPage = () => {
             setTotal(res.data.meta.total);
         }
 
-        console.log(">>check total: ", res.data)
 
     }
 
-    console.log(">>check size", size)
 
     return (
         <div style={{ padding: "20px" }}>
