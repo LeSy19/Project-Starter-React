@@ -8,7 +8,7 @@ const UpdateCompanyModal = (props) => {
     const [description, setDescription] = useState("");
     const [address, setAddress] = useState("");
 
-    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadCompany } = props;
 
     useEffect(() => {
         if (dataUpdate) {
@@ -31,7 +31,7 @@ const UpdateCompanyModal = (props) => {
                 pauseOnHover: true
             });
             resetAndCloseModal();
-            await loadUser();
+            await loadCompany();
         } else {
             notification.error({
                 message: "UPdate User",

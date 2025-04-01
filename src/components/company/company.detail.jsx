@@ -4,7 +4,7 @@ import { handleUploadFile, updateCompanyLogoAPI } from "../../services/api.servi
 
 const CompanyDetail = (props) => {
 
-    const { isDetailOpen, setIsDetailOpen, dataDetail, setDataDetail, loadUser } = props;
+    const { isDetailOpen, setIsDetailOpen, dataDetail, setDataDetail, loadCompany } = props;
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -36,7 +36,7 @@ const CompanyDetail = (props) => {
                 setIsDetailOpen(false)
                 setSelectedFile(null)
                 setPreview(null)
-                await loadUser()
+                await loadCompany()
                 notification.success({
                     message: "Success upload file",
                     description: "Update success",

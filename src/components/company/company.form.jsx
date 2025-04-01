@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createCompanyAPI } from "../../services/api.services";
 
 const FormCompany = (props) => {
-    const { loadUser } = props;
+    const { loadCompany } = props;
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -23,7 +23,7 @@ const FormCompany = (props) => {
                 pauseOnHover: true
             });
             resetAndCloseModal();
-            await loadUser(); //dùng await vì bên user dùng async
+            await loadCompany(); //dùng await vì bên user dùng async
         } else {
             notification.error({
                 message: "Create User",

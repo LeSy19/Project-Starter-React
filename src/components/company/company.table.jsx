@@ -7,7 +7,7 @@ import { deleteCompanyAPI } from '../../services/api.services';
 
 const CompanyTable = (props) => {
 
-    const { dataCompanies, loadUser,
+    const { dataCompanies, loadCompany,
         page, size, total,
         setPage, setSize
     } = props;
@@ -28,7 +28,7 @@ const CompanyTable = (props) => {
                 showProgress: true,
                 pauseOnHover: true
             });
-            await loadUser();
+            await loadCompany();
         } else {
             notification.error({
                 message: "Delete User",
@@ -136,7 +136,7 @@ const CompanyTable = (props) => {
                 pagination={
                     {
                         page: page,
-                        size: size,
+                        pageSize: size,
                         showSizeChanger: true,
                         total: total,
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
@@ -148,14 +148,14 @@ const CompanyTable = (props) => {
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
                 dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
-                loadUser={loadUser}
+                loadCompany={loadCompany}
             />
             <CompanyDetail
                 dataDetail={dataDetail}
                 setDataDetail={setDataDetail}
                 isDetailOpen={isDetailOpen}
                 setIsDetailOpen={setIsDetailOpen}
-                loadUser={loadUser}
+                loadCompany={loadCompany}
             />
         </>
     )

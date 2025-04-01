@@ -1,20 +1,20 @@
-import FormUser from "../components/user/company.form";
-import CompanyTable from "../components/user/company.table";
+import FormUser from "../components/company/company.form";
+import CompanyTable from "../components/company/company.table";
 import { fetchAllCompanyAPI } from '../services/api.services';
 import { useEffect, useState } from 'react';
 
 const CompanyPage = () => {
     const [dataCompanies, setDataCompanies] = useState([]);
     const [page, setPage] = useState(1);
-    const [size, setSize] = useState(10);
+    const [size, setSize] = useState(5);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        loadUser();
+        loadCompany();
     }, [page, size]);
 
 
-    const loadUser = async () => {
+    const loadCompany = async () => {
         const res = await fetchAllCompanyAPI(page, size);
         if (res.data) {
             setDataCompanies(res.data.result);
@@ -30,11 +30,11 @@ const CompanyPage = () => {
     return (
         <div style={{ padding: "20px" }}>
             <FormUser
-                loadUser={loadUser}
+                loadCompany={loadCompany}
             />
             <CompanyTable
                 dataCompanies={dataCompanies}
-                loadUser={loadUser}
+                loadCompany={loadCompany}
                 page={page}
                 size={size}
                 total={total}
