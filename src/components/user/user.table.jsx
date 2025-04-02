@@ -1,17 +1,65 @@
-import React, { useState } from 'react';
-import { Popconfirm, Space, Table, Tag } from 'antd';
+import React, { lazy, useEffect, useState } from 'react';
+import { notification, Popconfirm, Space, Table, Tag } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import UserDetail from './user.detail';
+import { deleteUserAPI, fetchAllUserAPI } from '../../services/api.services';
+import CreateUserForm from './user.create';
+import CreateUserUncontrol from './user.create.uncontrol';
+import UserUpdateControl from './user.update.control';
+import UserUpdateUncontrol from './user.update.uncontrol';
 
+const UserTable = () => {
 
-
-
-const UserTable = (props) => {
-
-    const { dataUser, loadUser, page, setPage, size, setSize, total } = props;
 
     const [dataDetailUser, setDataDetailUser] = useState(null);
     const [openDetailUser, setOpenDetailUser] = useState(false);
+    const [isOpenCreate, setIsOpenCreate] = useState(false);
+    const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+    const [dataUpdateUser, setDataUpdateUser] = useState(null);
+
+    const [dataUser, setDataUser] = useState([]);
+    const [page, setPage] = useState(1);
+    const [size, setSize] = useState(8);
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        loadUser();
+    }, [page, size])
+
+    const loadUser = async () => {
+        const res = await fetchAllUserAPI(page, size);
+        console.log(">>check res: ", res.data)
+        if (res.data) {
+            setDataUser(res.data.result);
+            setTotal(res.data.meta.total);
+            setPage(res.data.meta.page); // Có thể đây là vấn đề
+            setSize(res.data.meta.pageSize);
+
+
+        }
+    }
+
+    const handleDeleteUser = async (id) => {
+        const res = await deleteUserAPI(id);
+        if (res.data) {
+            notification.success({
+                message: "Delete User",
+                description: "Delete User Successfully",
+                duration: 2, //Thời gian hiển thị
+                showProgress: true,
+                pauseOnHover: true
+            });
+            await loadUser();
+        } else {
+            notification.error({
+                message: "Delete User",
+                description: JSON.stringify(res.message.message),
+                duration: 2, //Thời gian hiển thị
+                showProgress: true,
+                pauseOnHover: true
+            });
+        }
+    }
 
     const columns = [
         {
@@ -61,14 +109,14 @@ const UserTable = (props) => {
                     <EditOutlined
                         style={{ cursor: "pointer", color: "orange" }}
                         onClick={() => {
-                            // setDataUpdate(record);
-                            // setIsModalUpdateOpen(true);
+                            setDataUpdateUser(record);
+                            setIsOpenUpdate(true)
                         }}
                     />
                     <Popconfirm
                         title="Delete the task"
-                        description="Are you sure to delete this task?"
-                        // onConfirm={() => { handleDeleteUser(record.id) }}
+                        description="Are you sure to delete this user?"
+                        onConfirm={() => { handleDeleteUser(record.id) }}
                         // onCancel={cancel}
                         okText="Yes"
                         cancelText="No"
@@ -107,6 +155,16 @@ const UserTable = (props) => {
 
     return (
         <>
+            <CreateUserUncontrol
+                loadUser={loadUser}
+                isOpenCreate={isOpenCreate}
+                setIsOpenCreate={setIsOpenCreate}
+            />
+            {/* <CreateUserForm
+                loadUser={loadUser}
+                isOpenCreate={isOpenCreate}
+                setIsOpenCreate={setIsOpenCreate}
+            /> */}
             <Table
                 columns={columns}
                 dataSource={dataUser}
@@ -126,6 +184,22 @@ const UserTable = (props) => {
                 setOpenDetailUser={setOpenDetailUser}
                 dataDetailUser={dataDetailUser}
                 setDataDetailUser={setDataDetailUser}
+            />
+
+            {/* <UserUpdateControl
+                isOpenUpdate={isOpenUpdate}
+                setIsOpenUpdate={setIsOpenUpdate}
+                dataUpdateUser={dataUpdateUser}
+                setDataUpdateUser={setDataUpdateUser}
+                loadUser={loadUser}
+            /> */}
+
+            <UserUpdateUncontrol
+                isOpenUpdate={isOpenUpdate}
+                setIsOpenUpdate={setIsOpenUpdate}
+                dataUpdateUser={dataUpdateUser}
+                setDataUpdateUser={setDataUpdateUser}
+                loadUser={loadUser}
             />
         </>
     );

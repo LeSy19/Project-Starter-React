@@ -16,8 +16,8 @@ const FormCompany = (props) => {
         const res = await createCompanyAPI(name, description, address);
         if (res.data) {
             notification.success({
-                message: "Create User",
-                description: "Create User Successfully",
+                message: "Create Company",
+                description: "Create Company Successfully",
                 duration: 2, //Thời gian hiển thị
                 showProgress: true,
                 pauseOnHover: true
@@ -26,7 +26,7 @@ const FormCompany = (props) => {
             await loadCompany(); //dùng await vì bên user dùng async
         } else {
             notification.error({
-                message: "Create User",
+                message: "Create Company",
                 description: JSON.stringify(res.message.message),
                 duration: 2, //Thời gian hiển thị
                 showProgress: true,
@@ -44,11 +44,11 @@ const FormCompany = (props) => {
         <div className="user-form" style={{ margin: "20px 0" }}>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h3>Table Users</h3>
+                <h3>Table Company</h3>
                 <Button
                     type="primary"
                     onClick={() => { setIsModalOpen(true) }}
-                >Create User</Button>
+                >Create Company</Button>
             </div>
             <Modal
                 title="Create user"
