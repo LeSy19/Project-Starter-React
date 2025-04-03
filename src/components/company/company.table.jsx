@@ -18,6 +18,8 @@ const CompanyTable = (props) => {
     const [dataDetail, setDataDetail] = useState(null);
     const [isDetailOpen, setIsDetailOpen] = useState(false);
 
+    // const [loading, setLoading] = useState(false);
+
     const handleDeleteUser = async (id) => {
         const res = await deleteCompanyAPI(id);
         if (res.data) {
@@ -142,6 +144,7 @@ const CompanyTable = (props) => {
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
                     }}
                 onChange={onChange}
+            // loading={loadingTable}
             />
             <UpdateCompanyModal
                 isModalUpdateOpen={isModalUpdateOpen}

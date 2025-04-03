@@ -1,13 +1,16 @@
 import { Button, Modal, Form, Input, notification, Layout, InputNumber, Select } from "antd";
 import { createUserAPI } from "../../services/api.services";
+import { useState } from "react";
 
 
 const CreateUserUncontrol = (props) => {
 
     const { loadUser, isOpenCreate, setIsOpenCreate } = props;
     const [form] = Form.useForm();
+    const [loadingCreate, setLoadingCreate] = useState(false);
 
     const handleCreate = async (values) => {
+        setLoadingCreate(true);
         const { name, email, password, age, gender, address } = values;
         const res = await createUserAPI(name, email, password, age, gender, address);
         if (res.data) {
@@ -29,6 +32,7 @@ const CreateUserUncontrol = (props) => {
                 pauseOnHover: true
             });
         }
+        setLoadingCreate(false);
     }
 
     const resetAndCloseModal = () => {
@@ -48,6 +52,9 @@ const CreateUserUncontrol = (props) => {
                 <Modal title="CREATE USER(Uncontrol Component)"
                     open={isOpenCreate}
                     onOk={() => form.submit()}
+                    okButtonProps={{
+                        loading: loadingCreate
+                    }}
                     onCancel={() => resetAndCloseModal()}
                     okText="CREATE"
                     maskClosable={false}

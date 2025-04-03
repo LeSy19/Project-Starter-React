@@ -22,11 +22,14 @@ const UserTable = () => {
     const [size, setSize] = useState(8);
     const [total, setTotal] = useState(0);
 
+    const [loadingTable, setLoadingTable] = useState(false);
+
     useEffect(() => {
         loadUser();
     }, [page, size])
 
     const loadUser = async () => {
+        setLoadingTable(true);
         const res = await fetchAllUserAPI(page, size);
         console.log(">>check res: ", res.data)
         if (res.data) {
@@ -37,6 +40,7 @@ const UserTable = () => {
 
 
         }
+        setLoadingTable(false);
     }
 
     const handleDeleteUser = async (id) => {
@@ -177,6 +181,7 @@ const UserTable = () => {
                     showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
                 }}
                 onChange={onChange}
+                loading={loadingTable}
             />
 
             <UserDetail
